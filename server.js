@@ -2,10 +2,17 @@ import "dotenv/config";
 import express from "express";
 import { pool } from "./db/pool.js";
 import routersUsers from "./routes/routersUsers.js";
+import routerFavorite from "./routes/routersFavorite.js";
+import routerCourses from "./routes/routersCourses.js";
+import routerStudentCourses from "./routes/routersStudentCourses.js";
+
 
 const server = express();
 server.use(express.json());
 server.use("/api/users", routersUsers);
+server.use("/api/favorite", routerFavorite);
+server.use("/api/courses", routerCourses);
+server.use("/api/student-courses", routerStudentCourses);
 
 server.get("/health", async (req, res) => {
   try {

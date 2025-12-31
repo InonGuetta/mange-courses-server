@@ -1,4 +1,5 @@
 import { createOneUserService, updateOneUserService, getAllUsersService, deleteOneUserService, searchUsersService } from '../services/servicesUsers.js'
+
 // חיפוש חכם לפי שם (לפי שם חלקי לא תלוי רשויות )
 export async function searchUsers(req, res) {
     try {
@@ -13,7 +14,7 @@ export async function searchUsers(req, res) {
     }
 }
 
-export async function deleteUser(req, res) {
+export async function deleteOneUser(req, res) {
     try {
         const deletedUser = await deleteOneUserService(req.params.id);
         if (!deletedUser) {
@@ -38,7 +39,7 @@ export async function getAllUsers(res) {
     }
 }
 
-export const createUser = async (req, res) => {
+export const createOneUser = async (req, res) => {
     try {
         const createNewUser = await createOneUserService(req.body);
 
@@ -52,7 +53,7 @@ export const createUser = async (req, res) => {
     }
 };
 
-export async function updateUser(req, res) {
+export async function updateOneUser(req, res) {
     try {
         const updateOneUser = await updateOneUserService(req.params.id, req.body);
         if (updateOneUser === null) {

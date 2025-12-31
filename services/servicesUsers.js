@@ -1,4 +1,8 @@
+import { pool } from "../db/pool.js";
+
+
 // חיפוש חכם לפי שם (חלקי, לא תלוי רישיות)
+// תבדוק האם זה עובד 
 export async function searchUsersService(name) {
     try {
         const result = await pool.query(
@@ -11,6 +15,7 @@ export async function searchUsersService(name) {
         throw e;
     }
 }
+
 export async function deleteOneUserService(userId) {
     try {
         const result = await pool.query(
@@ -24,8 +29,6 @@ export async function deleteOneUserService(userId) {
         throw e;
     }
 }
-import { pool } from "../db/pool.js";
-
 
 export const getAllUsersService = async () => {
     try {
@@ -87,7 +90,7 @@ export async function updateOneUserService(userId, data) {
             WHERE id = $${values.length}
             RETURNING *
             `,
-            values
+            values 
         );
 
         if (oneUserToUpdate.rowCount === 0) return null;
