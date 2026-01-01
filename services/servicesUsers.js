@@ -3,7 +3,7 @@ import { pool } from "../db/pool.js";
 
 // חיפוש חכם לפי שם (חלקי, לא תלוי רישיות)
 // תבדוק האם זה עובד 
-export async function searchUsersService(name) {
+export const searchUsersService = async (name) => {
     try {
         const result = await pool.query(
             `SELECT * FROM users WHERE LOWER(name) LIKE LOWER($1)`,
@@ -16,7 +16,7 @@ export async function searchUsersService(name) {
     }
 }
 
-export async function deleteOneUserService(userId) {
+export const deleteOneUserService = async (userId) => {
     try {
         const result = await pool.query(
             `DELETE FROM users WHERE id = $1 RETURNING *`,
@@ -59,7 +59,7 @@ export const createOneUserService = async (data) => {
     }
 };
 
-export async function updateOneUserService(userId, data) {
+export const updateOneUserService = async (userId, data) => {
     try {
         const whitelistEdit = ["name", "email", "password_hash", "role"];
         const oneUserInfoToUpdate = await pool.query(
@@ -90,7 +90,7 @@ export async function updateOneUserService(userId, data) {
             WHERE id = $${values.length}
             RETURNING *
             `,
-            values 
+            values
         );
 
         if (oneUserToUpdate.rowCount === 0) return null;
