@@ -1,7 +1,6 @@
 import { createOneUserService, updateOneUserService, getAllUsersService, deleteOneUserService, searchUsersService } from '../services/servicesUsers.js'
 
-// חיפוש חכם לפי שם (לפי שם חלקי לא תלוי רשויות )
-
+    // חיפוש חכם לפי שם (לפי שם חלקי לא תלוי רשויות )
 export const searchUsers = async (req, res) => {
     try {
         const { name } = req.query;
