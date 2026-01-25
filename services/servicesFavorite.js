@@ -1,6 +1,16 @@
 import { pool } from "../db/pool.js";
 
 
+export const getAllFavoriteService = async() =>{
+    try{
+        const result = await pool.query(`SELECT * FROM favorite`);
+        return result.rows;
+    }catch(e){
+        console.error("Error get all favorites", e.message);
+        throw e;
+    }
+}
+
 export const addFavoriteOneService = async (userId, courseId) => {
     try {
         const result = await pool.query(
@@ -20,22 +30,22 @@ export const addFavoriteOneService = async (userId, courseId) => {
     }
 } 
 
-export const removeFavoriteOneService = async (userId, courseId) => {
+export const removeFavoriteOneService = async (id) => {
     try {
         const result = await pool.query(
             `
             DELETE FROM favorite
-            WHERE user_id = $1 AND course_id = $2
+            WHERE id = $1
             RETURNING *
             `,
-            [userId, courseId]
+            [id]
         );
         if (result.rowCount === 0) return null;
         return result.rows[0];
-    }catch(e){
+    } catch (e) {
         console.error("Error remove favorite", e.message);
         throw e;
-    }    
+    }
 }
 
 export const getAllFavoritesByUserService = async (userId) => {

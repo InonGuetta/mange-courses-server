@@ -1,11 +1,22 @@
 import { pool } from "../db/pool.js";
 
+
+export const getAllCoursesService = async () => {
+    try {
+        const result = await pool.query(`SELECT * FROM student_courses`)
+        return result.rows;
+    }catch(e){
+        console.error("Error get all student courses", e.message);
+        throw e;
+    }
+}
+
 export const addStudentToCourseService = async (student_id, course_id) => {
     try {
         const result = await pool.query(
             `INSERT INTO student_courses (student_id, course_id)
              VALUES ($1, $2)
-             ON CONFLICT (student_id, course_id) DO NOTHING
+             ON CONFLICT (student_id, course_id) DO NOTHING 
              RETURNING *`,
             [student_id, course_id]
         );
@@ -40,6 +51,7 @@ export const getCoursesByStudentService = async (student_id) => {
              ORDER BY sc.id DESC`,
             [student_id]
         );
+
         return result.rows;
     } catch (e) {
         console.error("Error get courses by student", e.message);

@@ -11,7 +11,7 @@ export const createOneCourse = async (req, res) => {
         res.status(500).send({ message: "the added not working", error: e.message });
     }
 };
-
+ 
 export const getAllCourses = async (req, res) => {
     try {
         const courses = await getAllCoursesService();

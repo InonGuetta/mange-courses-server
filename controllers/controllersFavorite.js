@@ -1,5 +1,17 @@
-import { addFavoriteOneService, removeFavoriteOneService, getAllFavoritesByUserService } from '../services/servicesFavorite.js';
+import { addFavoriteOneService, removeFavoriteOneService, getAllFavoritesByUserService, getAllFavoriteService } from '../services/servicesFavorite.js';
 
+
+export const getAllFavorite = async (req, res) => {
+    try {
+        const favorites = await getAllFavoriteService();
+        if(!favorites){
+            res.status(404).send({message: "the favorites not found"})
+        }
+        res.status(200).send({ favorites})
+    } catch (e) {
+        res.status(500).send({message: "Error get all favorite"})
+    }
+}
 
 export const addFavorite = async (req, res) => {
     try {
@@ -20,12 +32,11 @@ export const addFavorite = async (req, res) => {
 
 export const removeFavorite = async (req, res) => {
     try {
-        const userId = req.user?.id || req.body.userId || req.params.userId;
-        const courseId = req.body.courseId || req.params.id;
-        if (!userId || !courseId) {
-            return res.status(400).json({ message: "userId and courseId are required" });
+        const id = req.params.id;
+        if (!id) {
+            return res.status(400).json({ message: "id is required" });
         }
-        const removed = await removeFavoriteOneService(userId, courseId);
+        const removed = await removeFavoriteOneService(id);
         if (!removed) {
             return res.status(404).json({ message: "Favorite not found" });
         }
@@ -35,7 +46,7 @@ export const removeFavorite = async (req, res) => {
     }
 }
 
-export const getAllFavorite = async (req, res) => {
+export const getAllFavoriteByUser = async (req, res) => {
     try {
         const userId = req.user?.id || req.body.userId || req.query.userId || req.params.userId;
         if (!userId) {

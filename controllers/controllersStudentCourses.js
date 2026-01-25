@@ -1,4 +1,14 @@
-import { addStudentToCourseService, removeStudentFromCourseService, getCoursesByStudentService, getStudentsByCourseService } from '../services/servicesStudentCourses.js';
+import { addStudentToCourseService, removeStudentFromCourseService, getCoursesByStudentService, getStudentsByCourseService, getAllCoursesService } from '../services/servicesStudentCourses.js';
+
+
+export const getAllCourses = async (req, res) => {
+    try {
+        const result = await getAllCoursesService();
+        res.status(200).json(result);
+    } catch (e) {
+        res.status(500).send({message: "Error get all student courses"})
+    }
+}
 
 export const addStudentToCourse = async (req, res) => {
     try {
@@ -36,7 +46,7 @@ export const removeStudentFromCourse = async (req, res) => {
 
 export const getCoursesByStudent = async (req, res) => {
     try {
-        const student_id = req.user?.id || req.body.student_id || req.query.student_id || req.params.student_id;
+        const student_id = req.params.student_id;
         if (!student_id) {
             return res.status(400).json({ message: "student_id is required" });
         }
@@ -49,7 +59,7 @@ export const getCoursesByStudent = async (req, res) => {
 
 export const getStudentsByCourse = async (req, res) => {
     try {
-        const course_id = req.body.course_id || req.query.course_id || req.params.course_id;
+        const course_id = req.params.course_id;
         if (!course_id) {
             return res.status(400).json({ message: "course_id is required" });
         }
@@ -59,3 +69,4 @@ export const getStudentsByCourse = async (req, res) => {
         res.status(500).send({ message: "Error get students by course" });
     }
 };
+
