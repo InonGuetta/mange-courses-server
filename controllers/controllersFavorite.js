@@ -13,6 +13,24 @@ export const getAllFavorite = async (req, res) => {
     }
 }
 
+// קוד 001 אין לגעת 
+// export const addFavorite = async (req, res) => {
+//     try {
+//         const userId = req.user?.id || req.body.userId || req.params.userId;
+//         const courseId = req.body.courseId || req.params.id;
+//         if (!userId || !courseId) {
+//             return res.status(400).json({ message: "userId and courseId are required" });
+//         }
+//         const favorite = await addFavoriteOneService(userId, courseId);
+//         if (!favorite) {
+//             return res.status(409).json({ message: "Favorite already exists or failed to add" });
+//         }
+//         res.status(201).json(favorite);
+//     } catch (e) {
+//         res.status(500).send({ message: "Error added course to favorite" })
+//     }
+// }
+
 export const addFavorite = async (req, res) => {
     try {
         const userId = req.user?.id || req.body.userId || req.params.userId;

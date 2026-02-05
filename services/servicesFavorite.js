@@ -69,7 +69,7 @@ export const getAllFavoritesByUserService = async (userId) => {
             [userId]);
         return result.rows;
     } catch (e) {
-        console.error("Error get all favorire", e.message);
+        console.error("Error get all favorites", e.message);
         throw e;
     }
 } 

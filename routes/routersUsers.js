@@ -6,9 +6,7 @@ routerUsers.post("/create-user", createOneUser);
 routerUsers.get("/get-all-users", getAllUsers);
 routerUsers.put("/update-user/:id", updateOneUser);
 routerUsers.delete("/delete-user/:id", deleteOneUser);
-
-// חיפוש חכם לפי שם (חלקי, לא תלוי רישיות)
-// יש צורך לבדוק יותר לעומק 
+ 
 routerUsers.get("/search-user", searchUsers);
  
 
