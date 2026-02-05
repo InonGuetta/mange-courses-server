@@ -6,7 +6,6 @@ routerUsers.post("/create-user", createOneUser);
 routerUsers.get("/get-all-users", getAllUsers);
 routerUsers.put("/update-user/:id", updateOneUser);
 routerUsers.delete("/delete-user/:id", deleteOneUser);
- 
 routerUsers.get("/search-user", searchUsers);
  
 

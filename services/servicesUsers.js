@@ -1,8 +1,6 @@
 import { pool } from "../db/pool.js";
 
 
-// חיפוש חכם לפי שם (חלקי, לא תלוי רישיות)
-// תבדוק האם זה עובד 
 export const searchUsersService = async (name) => {
     try {
         const result = await pool.query(

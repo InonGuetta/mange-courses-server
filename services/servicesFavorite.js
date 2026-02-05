@@ -72,4 +72,30 @@ export const getAllFavoritesByUserService = async (userId) => {
         console.error("Error get all favorites", e.message);
         throw e;
     }
+}
+
+export const searchFavoritesService = async (student_id) => {
+    try {
+        const result = await pool.query(
+            `SELECT 
+            f.id           AS favorite_id,
+            f.user_id,
+            f.course_id,
+            c.name_course,
+            c.detail,
+            c.teacher_id,
+            t.name         AS teacher_name,
+            t.email        AS teacher_email
+            FROM favorite f 
+            JOIN courses c ON c.id = f.course_id
+            JOIN users t ON t.id = c.teacher_id
+            WHERE CAST(f.user_id AS TEXT) LIKE $1
+            ORDER BY f.id DESC
+            `,
+            [`%${student_id}%`]);
+        return result.rows;
+    } catch (e) {
+        console.error("Error search favorites", e.message);
+        throw e;
+    }
 } 

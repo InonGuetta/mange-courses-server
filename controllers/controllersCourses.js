@@ -50,11 +50,11 @@ export const updateOneCourse = async (req, res) => {
 
 export const searchCourses = async (req, res) => {
     try {
-        const { name } = req.query;
-        if (!name) {
-            return res.status(400).send({ message: 'Missing search parameter: name' });
+        const { name_course } = req.query;
+        if (!name_course) {
+            return res.status(400).send({ message: 'Missing search parameter: name_course' });
         }
-        const courses = await searchCoursesService(name);
+        const courses = await searchCoursesService(name_course);
         res.status(200).send({ courses });
     } catch (e) {
         res.status(500).send({ message: 'search failed', err: e.message });

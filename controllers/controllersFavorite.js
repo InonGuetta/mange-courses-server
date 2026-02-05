@@ -1,4 +1,4 @@
-import { addFavoriteOneService, removeFavoriteOneService, getAllFavoritesByUserService, getAllFavoriteService } from '../services/servicesFavorite.js';
+import { addFavoriteOneService, removeFavoriteOneService, getAllFavoritesByUserService, getAllFavoriteService, searchFavoritesService } from '../services/servicesFavorite.js';
 
 
 export const getAllFavorite = async (req, res) => {
@@ -74,5 +74,18 @@ export const getAllFavoriteByUser = async (req, res) => {
         res.status(200).json(favorites);
     } catch (e) {
         res.status(500).send({ message: "Error get all courses favorites" })
+    }
+}
+
+export const searchFavorites = async (req, res) => {
+    try {
+        const { student_id } = req.query;
+        if (!student_id) {
+            return res.status(400).send({ message: 'Missing search parameter: student_id' });
+        }
+        const favorites = await searchFavoritesService(student_id);
+        return res.status(200).send({ favorites });
+    } catch (e) {
+        return res.status(500).send({ message: 'search failed', err: e.message });
     }
 }
