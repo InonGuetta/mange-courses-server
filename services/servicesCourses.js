@@ -2,11 +2,11 @@ import { pool } from "../db/pool.js";
 
 export const createOneCourseService = async (data) => {
     try {
-        const { name_course, detail, teacher_id } = data;
-        if (!name_course || !detail || !teacher_id) return null;
+        const { nameCourse, detail, teacherId } = data;
+        if (!nameCourse || !detail || !teacherId) return null;
         const result = await pool.query(
             `INSERT INTO courses (name_course, detail, teacher_id) VALUES ($1, $2, $3) RETURNING *`,
-            [name_course, detail, teacher_id]
+            [nameCourse, detail, teacherId]
         );
         return result.rows[0];
     } catch (e) {
@@ -41,10 +41,10 @@ export const deleteOneCourseService = async (courseId) => {
 
 export const updateOneCourseService = async (courseId, data) => {
     try {
-        const { name_course, detail, teacher_id } = data;
+        const { nameCourse, detail, teacherId } = data;
         const result = await pool.query(
             `UPDATE courses SET name_course = $1, detail = $2, teacher_id = $3 WHERE id = $4 RETURNING *`,
-            [name_course, detail, teacher_id, courseId]
+            [nameCourse, detail, teacherId, courseId]
         );
         if (result.rowCount === 0) return null;
         return result.rows[0];

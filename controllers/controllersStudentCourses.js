@@ -1,4 +1,4 @@
-import { addStudentToCourseService, removeStudentFromCourseService, getCoursesByStudentService, getStudentsByCourseService, getAllCoursesService, searchStudentCoursesService } from '../services/servicesStudentCourses.js';
+import { addStudentToCourseService, removeStudentFromCourseService, getCoursesByStudentService, getStudentsByCourseService, getAllCoursesService } from '../services/servicesStudentCourses.js';
 
 
 export const getAllCourses = async (req, res) => {
@@ -69,17 +69,3 @@ export const getStudentsByCourse = async (req, res) => {
         res.status(500).send({ message: "Error get students by course" });
     }
 };
-
-export const searchStudentCourses = async (req, res) => {
-    try {
-        const { user_id } = req.query;
-        if (!user_id) {
-            return res.status(400).send({ message: 'Missing search parameter: user_id' });
-        }
-        const studentCourses = await searchStudentCoursesService(user_id);
-        return res.status(200).send({ studentCourses });
-    } catch (e) {
-        return res.status(500).send({ message: 'search failed', err: e.message });
-    }
-};
-

@@ -42,12 +42,12 @@ export const getAllUsersService = async () => {
 
 export const createOneUserService = async (data) => {
     try {
-        const { name, email, password_hash, role } = data;
-        if (!name || !email || !password_hash || !role) return null;
+        const { name, email, passwordHash, role } = data;
+        if (!name || !email || !passwordHash || !role) return null;
 
         const result = await pool.query(
             `INSERT INTO users (name, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [name, email, password_hash, role]
+            [name, email, passwordHash, role]
         );
 
         return result.rows[0];

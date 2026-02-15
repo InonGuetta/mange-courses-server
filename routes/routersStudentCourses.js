@@ -1,5 +1,5 @@
 import express from "express";
-import { addStudentToCourse, removeStudentFromCourse, getCoursesByStudent, getStudentsByCourse, getAllCourses, searchStudentCourses } from '../controllers/controllersStudentCourses.js';
+import { addStudentToCourse, removeStudentFromCourse, getCoursesByStudent, getStudentsByCourse, getAllCourses } from '../controllers/controllersStudentCourses.js';
 const routerStudentCourses = express.Router();
 
 
@@ -8,6 +8,5 @@ routerStudentCourses.get("/get-courses-by-student/:student_id", getCoursesByStud
 routerStudentCourses.get("/get-students-by-course/:course_id", getStudentsByCourse);
 routerStudentCourses.post("/add-student-to-course/:course_id", addStudentToCourse);
 routerStudentCourses.delete("/remove-student-from-course/:course_id", removeStudentFromCourse);
-routerStudentCourses.get("/search-student-course", searchStudentCourses);
 
 export default routerStudentCourses;

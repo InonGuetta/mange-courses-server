@@ -75,20 +75,3 @@ export const getStudentsByCourseService = async (course_id) => {
         throw e;
     }
 };
-
-export const searchStudentCoursesService = async (user_id) => {
-    try {
-        const result = await pool.query(
-            `SELECT sc.id as student_course_id, sc.student_id, sc.course_id, c.name_course, c.detail, c.teacher_id
-             FROM student_courses sc
-             JOIN courses c ON c.id = sc.course_id
-             WHERE CAST(sc.student_id AS TEXT) LIKE $1
-             ORDER BY sc.id DESC`,
-            [`%${user_id}%`]
-        );
-        return result.rows;
-    } catch (e) {
-        console.error("Error search student courses", e.message);
-        throw e;
-    }
-};
